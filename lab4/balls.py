@@ -54,7 +54,7 @@ def new_ball():
         ball.append([x, y, vx, vy, r, color, click])
 
 
-# reflecting of a balls
+# reflection of a balls
 def reflection_balls():
     for i in range(len(ball)):
         if ball[i][0] + ball[i][4] >= width or ball[i][0] <= ball[i][4]:
@@ -65,7 +65,7 @@ def reflection_balls():
             ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# reflecting of a squares
+# reflection of a squares
 
 def reflection_squares():
     for i in range(len(square)):
