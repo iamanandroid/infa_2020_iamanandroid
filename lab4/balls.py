@@ -1,6 +1,8 @@
 import pygame
+import numpy
 from pygame.draw import *
 from random import randint
+
 pygame.init()
 
 # constants
@@ -8,6 +10,7 @@ height = 700
 width = 1200
 FPS = 60
 dt = 0.5
+alpha = 0
 points = 0
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
@@ -26,17 +29,21 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN, PURPLE, LIGHTBLUE]
 
 # creating a squares
 def new_square():
-    global square
+    global square, speed
     square = []
+    speed = []
     for i in range(5):
         x = randint(200, width - 350)
         y = randint(200, height - 350)
         vx = dt * randint(3, 10) * (-1) ** (randint(1, 2))
         vy = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-        r = randint(60, 150)
+        r = randint(60, 200)
         color = COLORS[randint(0, 7)]
         click = False
-        square.append([x, y, vx, vy, r, color, click])
+        angle = randint(0, 360)
+        square.append([x, y, vx, vy, r, color, click, angle])
+        v0 = dt * randint(1, 2) * (-1) ** (randint(1, 2))
+        speed.append([square[i][2], square[i][3], v0])
 
 
 # creating a balls
@@ -48,13 +55,13 @@ def new_ball():
         y = randint(200, height - 200)
         vx = dt * randint(3, 10) * (-1) ** (randint(1, 2))
         vy = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-        r = randint(30, 90)
+        r = randint(60, 200)
         color = COLORS[randint(0, 7)]
         click = False
         ball.append([x, y, vx, vy, r, color, click])
 
 
-# reflection of a balls
+# reflecting of a balls
 def reflection_balls():
     for i in range(len(ball)):
         if ball[i][0] + ball[i][4] >= width or ball[i][0] <= ball[i][4]:
@@ -65,22 +72,24 @@ def reflection_balls():
             ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# reflection of a squares
+# reflecting of a squares
 
 def reflection_squares():
     for i in range(len(square)):
         if square[i][0] + square[i][4] >= width or square[i][0] <= 0:
             square[i][2] = -1 * square[i][2]
+            square[i][7] = square[i][7] + 180
             square[i][0] = square[i][0] + square[i][2]
         elif square[i][1] + square[i][4] >= height or square[i][1] <= 0:
             square[i][3] = -1 * square[i][3]
+            square[i][7] = square[i][7] + 180
             square[i][1] = square[i][1] + square[i][3]
 
 
 # moving of a balls
 def move_ball():
     for i in range(len(ball)):
-        circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4])
+        circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4] // 2)
         ball[i][0] = ball[i][0] + ball[i][2]
         ball[i][1] = ball[i][1] + ball[i][3]
 
@@ -93,8 +102,11 @@ def move_square():
         rect1.append(pygame.Rect(square[i][0], square[i][1], square[i][4], square[i][4]))
         rect(screen, square[i][5], rect1[i])
         circle(screen, WHITE, rect1[i].center, square[i][4] // 2)
+        square[i][7] = square[i][7] + 1
         square[i][0] = square[i][0] + square[i][2]
         square[i][1] = square[i][1] + square[i][3]
+        square[i][2] = speed[i][0] * numpy.cos(square[i][7] * numpy.pi / 180) + speed[i][2]
+        square[i][3] = speed[i][1] * numpy.sin(square[i][7] * numpy.pi / 180)
 
 
 # points for clicking on balls
@@ -102,7 +114,7 @@ def score_ball():
     global points
     for i in range(len(ball)):
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if (event.pos[0] - ball[i][0]) ** 2 + (event.pos[1] - ball[i][1]) ** 2 <= ball[i][4] ** 2:
+            if (event.pos[0] - ball[i][0]) ** 2 + (event.pos[1] - ball[i][1]) ** 2 <= ball[i][4] ** 2 / 4:
                 ball[i][6] = True
                 points += 1
 
@@ -115,7 +127,7 @@ def score_square():
             if 1 / 2 * (square[i][4]) ** 2 > (event.pos[0] - rect1[i].center[0]) ** 2 + (
                     event.pos[1] - rect1[i].center[1]) ** 2 > (square[i][4] // 2) ** 2:
                 square[i][6] = True
-                points += 3
+                points += 2
 
 
 # creating new objects after clicking on them
@@ -126,9 +138,11 @@ def blow(ball):
             ball[i][1] = randint(200, height - 200)
             ball[i][2] = dt * randint(3, 10) * (-1) ** (randint(1, 2))
             ball[i][3] = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-            ball[i][4] = randint(60, 130)
+            ball[i][4] = randint(60, 200)
             ball[i][5] = COLORS[randint(0, 7)]
             ball[i][6] = False
+            v0 = dt * randint(1, 2) * (-1) ** (randint(1, 2))
+            speed.append([ball[i][2], ball[i][3], v0])
 
 
 # players' score
@@ -190,7 +204,6 @@ while not finished:
     screen.blit(name, (width // 2 - 230, height // 2 - 100))
     pygame.display.update()
     screen.fill(WHITE)
-
 
 # the game
 finished = False
