@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import pygame
 from pygame.draw import *
 
@@ -444,4 +443,3 @@ while not finished:
             finished = True
 
 pygame.quit()
->>>>>>> f9c04569be1f427b432a9244d0befb395fe41135
