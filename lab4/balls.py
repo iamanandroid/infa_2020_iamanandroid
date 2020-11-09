@@ -26,10 +26,22 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN, PURPLE, LIGHTBLUE]
 # Global constant
 points = 0
 
+
 # Functions
 
-# Creating squares
+
 def new_square():
+    """ Creates squares.
+    Args:
+        x - square's horizontal coordinate at the beginning
+        y - square's vertical coordinate at the beginning
+        vx - square's horizontal speed at the beginning
+        vy - square's vertical speed at the beginning
+        r - radius of a circle inscribed in a square
+        click - show is square clicked or not
+        angle - initial angle on a spiral that square makes
+
+    """
     global square, speed
     square = []
     speed = []
@@ -49,6 +61,15 @@ def new_square():
 
 # Creating balls
 def new_ball():
+    """ Creates balls
+    Args:
+        x - ball's horizontal coordinate at the beginning
+        y - ball's vertical coordinate at the beginning
+        vx - ball's horizontal speed at the beginning
+        vy - ball's vertical speed at the beginning
+        r - radius of a ball
+        click - show is ball clicked or not
+    """
     global ball
     ball = []
     for i in range(10):
@@ -64,6 +85,9 @@ def new_ball():
 
 # Balls' reflection
 def reflection_balls():
+    ''' Balls' reflection.
+    Ball changing his direction if his ball touches the window screen.
+    '''
     for i in range(len(ball)):
         if ball[i][0] + ball[i][4] >= WIDTH or ball[i][0] <= ball[i][4]:
             ball[i][2] = -1 * ball[i][2]
@@ -73,9 +97,10 @@ def reflection_balls():
             ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# Squares' reflection
-
 def reflection_squares():
+    ''' Squares' reflection.
+    Square changing his direction if his square touches the window screen.
+    '''
     for i in range(len(square)):
         if square[i][0] + square[i][4] >= WIDTH or square[i][0] <= 0:
             square[i][2] = -1 * square[i][2]
@@ -87,16 +112,19 @@ def reflection_squares():
             square[i][1] = square[i][1] + square[i][3]
 
 
-# balls' movements
 def move_ball():
+    ''' Balls' movements.'''
     for i in range(len(ball)):
         circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4] // 2)
         ball[i][0] = ball[i][0] + ball[i][2]
         ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# Squares' movements
 def move_square():
+    ''' Squares' movements.
+    because of that our trajectory is a spiral
+    Angle of a square's spiral  увеличивается and because of that our trajectory is a spiral
+    '''
     global rect1
     rect1 = []
     for i in range(len(square)):
@@ -110,8 +138,8 @@ def move_square():
         square[i][3] = speed[i][1] * numpy.sin(square[i][7] * numpy.pi / 180)
 
 
-# Points for clicking on balls
 def score_ball():
+    ''' Add points for clicking on balls'''
     global points
     for i in range(len(ball)):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -120,8 +148,8 @@ def score_ball():
                 points += 1
 
 
-# Giving points for clicking on squares
 def score_square():
+    ''' Add points for clicking on squares'''
     global points
     for i in range(len(square)):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -131,8 +159,8 @@ def score_square():
                 points += 2
 
 
-# Creating new objects after clicking on them
 def blow(ball):
+    ''' Creating new objects after clicking on them '''
     for i in range(len(ball)):
         if ball[i][6]:
             ball[i][0] = randint(200, WIDTH - 200)
@@ -146,24 +174,27 @@ def blow(ball):
             speed.append([ball[i][2], ball[i][3], v0])
 
 
-# Players' score
 def leaders():
-    A = []
+    ''' Players' score
+    Reading file with players' score and then adding to the file player's score.
+    Then sorts all scores and rewrites the file.
+    '''
+    a = []
     with open('leaders.txt') as file:
         for line in file:
-            A.append(line.split())
-    A.append([str(text), str(points)])
-    for i in range(len(A)):
-        if len(A[i]) > 2:
-            num = ''.join(A[i][-1::])
-            A[i] = [' '.join(A[i][:-1:])]
-            A[i].append(num)
+            a.append(line.split())
+    a.append([str(text), str(points)])
+    for i in range(len(a)):
+        if len(a[i]) > 2:
+            num = ''.join(a[i][-1::])
+            a[i] = [' '.join(a[i][:-1:])]
+            a[i].append(num)
 
     def number_of_point(point):
         name_text, number = point
         return int(number)
 
-    points_by_number = sorted(A, key=number_of_point, reverse=True)
+    points_by_number = sorted(a, key=number_of_point, reverse=True)
     for i in range(len(points_by_number)):
         points_by_number[i] = ' '.join(points_by_number[i])
     points_by_number_str = '\n'.join(points_by_number)
