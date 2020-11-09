@@ -27,7 +27,7 @@ COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN, PURPLE, LIGHTBLUE]
 
 # functions
 
-# creating a squares
+# creating squares
 def new_square():
     global square, speed
     square = []
@@ -46,7 +46,7 @@ def new_square():
         speed.append([square[i][2], square[i][3], v0])
 
 
-# creating a balls
+# creating balls
 def new_ball():
     global ball
     ball = []
