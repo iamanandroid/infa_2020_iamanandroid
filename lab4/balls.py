@@ -5,13 +5,12 @@ from random import randint
 
 pygame.init()
 
-# constants
-height = 700
-width = 1200
+# Constants
+HEIGHT = 700
+WIDTH = 1200
 FPS = 60
-dt = 0.5
-alpha = 0
-points = 0
+DT = 0.5
+ALPHA = 0
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
@@ -24,69 +23,71 @@ PURPLE = (234, 0, 255)
 LIGHTBLUE = (0, 196, 255)
 COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN, PURPLE, LIGHTBLUE]
 
+# Global constant
+points = 0
 
-# functions
+# Functions
 
-# creating squares
+# Creating squares
 def new_square():
     global square, speed
     square = []
     speed = []
     for i in range(5):
-        x = randint(200, width - 350)
-        y = randint(200, height - 350)
-        vx = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-        vy = dt * randint(3, 10) * (-1) ** (randint(1, 2))
+        x = randint(200, WIDTH - 350)
+        y = randint(200, HEIGHT - 350)
+        vx = DT * randint(3, 10) * (-1) ** (randint(1, 2))
+        vy = DT * randint(3, 10) * (-1) ** (randint(1, 2))
         r = randint(60, 200)
         color = COLORS[randint(0, 7)]
         click = False
         angle = randint(0, 360)
         square.append([x, y, vx, vy, r, color, click, angle])
-        v0 = dt * randint(1, 2) * (-1) ** (randint(1, 2))
+        v0 = DT * randint(1, 2) * (-1) ** (randint(1, 2))
         speed.append([square[i][2], square[i][3], v0])
 
 
-# creating balls
+# Creating balls
 def new_ball():
     global ball
     ball = []
     for i in range(10):
-        x = randint(200, width - 200)
-        y = randint(200, height - 200)
-        vx = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-        vy = dt * randint(3, 10) * (-1) ** (randint(1, 2))
+        x = randint(200, WIDTH - 200)
+        y = randint(200, HEIGHT - 200)
+        vx = DT * randint(3, 10) * (-1) ** (randint(1, 2))
+        vy = DT * randint(3, 10) * (-1) ** (randint(1, 2))
         r = randint(60, 200)
         color = COLORS[randint(0, 7)]
         click = False
         ball.append([x, y, vx, vy, r, color, click])
 
 
-# reflecting of a balls
+# Balls' reflection
 def reflection_balls():
     for i in range(len(ball)):
-        if ball[i][0] + ball[i][4] >= width or ball[i][0] <= ball[i][4]:
+        if ball[i][0] + ball[i][4] >= WIDTH or ball[i][0] <= ball[i][4]:
             ball[i][2] = -1 * ball[i][2]
             ball[i][0] = ball[i][0] + ball[i][2]
-        elif ball[i][1] + ball[i][4] >= height or ball[i][1] <= ball[i][4]:
+        elif ball[i][1] + ball[i][4] >= HEIGHT or ball[i][1] <= ball[i][4]:
             ball[i][3] = -1 * ball[i][3]
             ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# reflecting of a squares
+# Squares' reflection
 
 def reflection_squares():
     for i in range(len(square)):
-        if square[i][0] + square[i][4] >= width or square[i][0] <= 0:
+        if square[i][0] + square[i][4] >= WIDTH or square[i][0] <= 0:
             square[i][2] = -1 * square[i][2]
             square[i][7] = square[i][7] + 180
             square[i][0] = square[i][0] + square[i][2]
-        elif square[i][1] + square[i][4] >= height or square[i][1] <= 0:
+        elif square[i][1] + square[i][4] >= HEIGHT or square[i][1] <= 0:
             square[i][3] = -1 * square[i][3]
             square[i][7] = square[i][7] + 180
             square[i][1] = square[i][1] + square[i][3]
 
 
-# moving of a balls
+# balls' movements
 def move_ball():
     for i in range(len(ball)):
         circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4] // 2)
@@ -94,7 +95,7 @@ def move_ball():
         ball[i][1] = ball[i][1] + ball[i][3]
 
 
-# moving of a squares
+# Squares' movements
 def move_square():
     global rect1
     rect1 = []
@@ -109,7 +110,7 @@ def move_square():
         square[i][3] = speed[i][1] * numpy.sin(square[i][7] * numpy.pi / 180)
 
 
-# points for clicking on balls
+# Points for clicking on balls
 def score_ball():
     global points
     for i in range(len(ball)):
@@ -119,7 +120,7 @@ def score_ball():
                 points += 1
 
 
-# points for clicking on squares
+# Giving points for clicking on squares
 def score_square():
     global points
     for i in range(len(square)):
@@ -130,22 +131,22 @@ def score_square():
                 points += 2
 
 
-# creating new objects after clicking on them
+# Creating new objects after clicking on them
 def blow(ball):
     for i in range(len(ball)):
         if ball[i][6]:
-            ball[i][0] = randint(200, width - 200)
-            ball[i][1] = randint(200, height - 200)
-            ball[i][2] = dt * randint(3, 10) * (-1) ** (randint(1, 2))
-            ball[i][3] = dt * randint(3, 10) * (-1) ** (randint(1, 2))
+            ball[i][0] = randint(200, WIDTH - 200)
+            ball[i][1] = randint(200, HEIGHT - 200)
+            ball[i][2] = DT * randint(3, 10) * (-1) ** (randint(1, 2))
+            ball[i][3] = DT * randint(3, 10) * (-1) ** (randint(1, 2))
             ball[i][4] = randint(60, 200)
             ball[i][5] = COLORS[randint(0, 7)]
             ball[i][6] = False
-            v0 = dt * randint(1, 2) * (-1) ** (randint(1, 2))
+            v0 = DT * randint(1, 2) * (-1) ** (randint(1, 2))
             speed.append([ball[i][2], ball[i][3], v0])
 
 
-# players' score
+# Players' score
 def leaders():
     A = []
     with open('leaders.txt') as file:
@@ -171,8 +172,8 @@ def leaders():
     output.close()
 
 
-# settings
-screen = pygame.display.set_mode((width, height))
+# Settings
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.mixer.music.load('sponge_bob.mp3')
 pygame.mixer.music.play(-1)
 clock = pygame.time.Clock()
@@ -180,7 +181,7 @@ font_surface = pygame.font.SysFont('comic sans', 48)
 text = ' '
 finished = False
 
-# main menu
+# Main menu
 while not finished:
     clock.tick(FPS)
     title = font_surface.render('Write your name, warrior! ', True, BLACK)
@@ -200,12 +201,12 @@ while not finished:
             else:
                 text += event.unicode
 
-    screen.blit(title, (width // 2 - 230, height // 2 - 160))
-    screen.blit(name, (width // 2 - 230, height // 2 - 100))
+    screen.blit(title, (WIDTH // 2 - 230, HEIGHT // 2 - 160))
+    screen.blit(name, (WIDTH // 2 - 230, HEIGHT // 2 - 100))
     pygame.display.update()
     screen.fill(WHITE)
 
-# the game
+# The game
 finished = False
 pygame.mixer.music.load('14th sonata.mp3')
 pygame.mixer.music.play(-1)
