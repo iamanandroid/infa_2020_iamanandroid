@@ -88,10 +88,10 @@ def reflection_balls():
     Ball changing his direction if his ball touches the window screen.
     """
     for i in range(len(ball)):
-        if ball[i][0] + ball[i][4] >= WIDTH or ball[i][0] <= ball[i][4]:
+        if ball[i][0] + ball[i][4] // 2 >= WIDTH or ball[i][0] <= ball[i][4] // 2:
             ball[i][2] = -1 * ball[i][2]
             ball[i][0] = ball[i][0] + ball[i][2]
-        elif ball[i][1] + ball[i][4] >= HEIGHT or ball[i][1] <= ball[i][4]:
+        elif ball[i][1] + ball[i][4] // 2 >= HEIGHT or ball[i][1] <= ball[i][4] // 2:
             ball[i][3] = -1 * ball[i][3]
             ball[i][1] = ball[i][1] + ball[i][3]
 
@@ -210,6 +210,7 @@ clock = pygame.time.Clock()
 font_surface = pygame.font.SysFont('comic sans', 48)
 text = ' '
 finished = False
+error = font_surface.render('Enter your name!', True, WHITE)
 
 # Main menu
 while not finished:
@@ -226,13 +227,17 @@ while not finished:
             elif event.key == pygame.K_BACKSPACE:
                 text = text[:-1]
             elif event.key == pygame.K_RETURN:
-                finished = True
-                pygame.mixer.music.pause()
+                if text == ' ' :
+                    error = font_surface.render('Enter your name!', True, BLACK)
+                else:
+                    finished = True
+                    pygame.mixer.music.pause()
             else:
                 text += event.unicode
 
     screen.blit(title, (WIDTH // 2 - 230, HEIGHT // 2 - 160))
     screen.blit(name, (WIDTH // 2 - 230, HEIGHT // 2 - 100))
+    screen.blit(error, (WIDTH // 2 - 230, HEIGHT // 2 + 300))
     pygame.display.update()
     screen.fill(WHITE)
 
@@ -244,6 +249,8 @@ new_ball()
 new_square()
 while not finished:
     clock.tick(FPS)
+    if text == ' ':
+        finished = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             finished = True
