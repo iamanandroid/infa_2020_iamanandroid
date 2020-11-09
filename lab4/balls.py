@@ -31,7 +31,7 @@ points = 0
 
 
 def new_square():
-    """ Creates squares.
+    """Creates squares.
     Args:
         x - square's horizontal coordinate at the beginning
         y - square's vertical coordinate at the beginning
@@ -40,7 +40,6 @@ def new_square():
         r - radius of a circle inscribed in a square
         click - show is square clicked or not
         angle - initial angle on a spiral that square makes
-
     """
     global square, speed
     square = []
@@ -61,7 +60,7 @@ def new_square():
 
 # Creating balls
 def new_ball():
-    """ Creates balls
+    """Creates balls.
     Args:
         x - ball's horizontal coordinate at the beginning
         y - ball's vertical coordinate at the beginning
@@ -85,9 +84,9 @@ def new_ball():
 
 # Balls' reflection
 def reflection_balls():
-    ''' Balls' reflection.
+    """Balls' reflection.
     Ball changing his direction if his ball touches the window screen.
-    '''
+    """
     for i in range(len(ball)):
         if ball[i][0] + ball[i][4] >= WIDTH or ball[i][0] <= ball[i][4]:
             ball[i][2] = -1 * ball[i][2]
@@ -98,9 +97,9 @@ def reflection_balls():
 
 
 def reflection_squares():
-    ''' Squares' reflection.
+    """Squares' reflection.
     Square changing his direction if his square touches the window screen.
-    '''
+    """
     for i in range(len(square)):
         if square[i][0] + square[i][4] >= WIDTH or square[i][0] <= 0:
             square[i][2] = -1 * square[i][2]
@@ -113,7 +112,7 @@ def reflection_squares():
 
 
 def move_ball():
-    ''' Balls' movements.'''
+    """Balls' movements."""
     for i in range(len(ball)):
         circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4] // 2)
         ball[i][0] = ball[i][0] + ball[i][2]
@@ -121,10 +120,10 @@ def move_ball():
 
 
 def move_square():
-    ''' Squares' movements.
+    """Squares' movements.
     because of that our trajectory is a spiral
     Angle of a square's spiral  увеличивается and because of that our trajectory is a spiral
-    '''
+    """
     global rect1
     rect1 = []
     for i in range(len(square)):
@@ -139,7 +138,7 @@ def move_square():
 
 
 def score_ball():
-    ''' Add points for clicking on balls'''
+    """Add points for clicking on balls."""
     global points
     for i in range(len(ball)):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -149,7 +148,7 @@ def score_ball():
 
 
 def score_square():
-    ''' Add points for clicking on squares'''
+    """Add points for clicking on squares."""
     global points
     for i in range(len(square)):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -160,7 +159,7 @@ def score_square():
 
 
 def blow(ball):
-    ''' Creating new objects after clicking on them '''
+    """Creating new objects after clicking on them."""
     for i in range(len(ball)):
         if ball[i][6]:
             ball[i][0] = randint(200, WIDTH - 200)
@@ -175,10 +174,10 @@ def blow(ball):
 
 
 def leaders():
-    ''' Players' score
+    """Players' score.
     Reading file with players' score and then adding to the file player's score.
     Then sorts all scores and rewrites the file.
-    '''
+    """
     a = []
     with open('leaders.txt') as file:
         for line in file:
