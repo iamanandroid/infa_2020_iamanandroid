@@ -1,14 +1,14 @@
 import pygame
 from pygame.draw import *
 
-pygame.init()
+# Constants
+
+# Size of screen and FPS
+x = 800
+y = 800
 FPS = 30
 
-# Size of screen
-x = 800
-y = 1000
-screen = pygame.display.set_mode((x, y))
-
+# Scale
 a = 1  # Scale coefficient for an abscissas' axis
 b = 1  # Scale coefficient for an ordinates' axis
 
@@ -25,6 +25,12 @@ DARK_GREY_CLOUDS = (46, 46, 46)  # For clouds
 LIGHTEST_GREY_UFO = (181, 181, 181)  # For a UFO's porthole
 LIGHT_GREY_UFO = (119, 120, 116)  # For a UFO's carcass
 
+# Creating a screen and initializing pygame
+screen = pygame.display.set_mode((x, y))
+pygame.init()
+
+
+# Functions
 
 # Draw a sky with clouds
 def sky_with_clouds():
@@ -55,7 +61,7 @@ def ufo(a, b, d, e):
     image_light_of_ufo.set_colorkey(BLACK)
     image_light_of_ufo.set_alpha(100)
     polygon(image_light_of_ufo, WHITE, [(int(20 * a), int(b * 800)), (int(a * 200), int(b * 450)), (int(a * 400),
-                                                                                                    int(b * 800))
+                                                                                                    (b * 800))
                                         ])
     image_ufo = pygame.Surface((int(x * a), int(y * b)))
     image_ufo.set_colorkey(BLACK)
@@ -197,19 +203,19 @@ def flipped_alien(a, b, d, e):
     screen.blit(image_alien, (d, e))
 
 
-# Functions
-circle(screen, WHITE, (x * 6 // 8, y // 5), 150)  # Draw the Moon
+# Creating a picture with functions
+circle(screen, WHITE, (x * 6 // 8, y // 5), 100)  # Draw the Moon
 sky_with_clouds()  # Draw sky with clouds
 rect(screen, DARK_GREEN, (0, y // 2, x, y))  # Draw a grass
-flipped_alien(0.3, 0.3, 100, 450)  # Draw an alien
-ufo(0.3, 0.3, 300, 300)  # Draw an ufo
-ufo(0.5, 0.5, 500, 200)
-ufo(1, 1, 0, -100)
-flipped_alien(0.4, 0.4, 200, 700)
-flipped_alien(0.4, 0.4, -60, 550)
-alien(0.8, 0.8, 300, 400)
+flipped_alien(0.3, 0.3, 100, 350)  # Draw an alien
+ufo(0.3, 0.3, 300, 200)  # Draw an ufo
+ufo(0.5, 0.5, 500, 100)
+ufo(1, 1, 0, -200)
+flipped_alien(0.4, 0.4, 200, 500)
+flipped_alien(0.4, 0.4, -60, 450)
+alien(0.6, 0.6, 400, 350)
 
-# Initialize picture
+# Initializing picture
 pygame.display.update()
 clock = pygame.time.Clock()
 finished = False
