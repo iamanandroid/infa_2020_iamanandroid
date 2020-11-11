@@ -208,7 +208,7 @@ pygame.mixer.music.load('sponge_bob.mp3')
 pygame.mixer.music.play(-1)
 clock = pygame.time.Clock()
 font_surface = pygame.font.SysFont('comic sans', 48)
-text = ' '
+text = ''
 finished = False
 error = font_surface.render('Enter your name!', True, WHITE)
 
@@ -227,7 +227,7 @@ while not finished:
             elif event.key == pygame.K_BACKSPACE:
                 text = text[:-1]
             elif event.key == pygame.K_RETURN:
-                if text == ' ' :
+                if text == '':
                     error = font_surface.render('Enter your name!', True, BLACK)
                 else:
                     finished = True
