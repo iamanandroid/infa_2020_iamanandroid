@@ -175,30 +175,31 @@ def blow(ball):
 
 def leaders():
     """Players' score.
-    Reading file with players' score and then adding to the file player's score.
-    Then sorts all scores and rewrites the file.
+    Reading file with old players' score and then adding to the file new player's score.
+    Then sorts all scores and rewrites the file. Player's name shouldn't be empty.
     """
-    a = []
-    with open('leaders.txt') as file:
-        for line in file:
-            a.append(line.split())
-    a.append([str(text), str(points)])
-    for i in range(len(a)):
-        if len(a[i]) > 2:
-            num = ''.join(a[i][-1:])
-            a[i] = [' '.join(a[i][:-1])]
-            a[i].append(num)
+    if text != '':
+        a = []
+        with open('leaders.txt') as file:
+            for line in file:
+                a.append(line.split())
+        a.append([str(text), str(points)])
+        for i in range(len(a)):
+            if len(a[i]) > 2:
+                num = ''.join(a[i][-1:])
+                a[i] = [' '.join(a[i][:-1])]
+                a[i].append(num)
 
-    def number_of_point(point):
-        name_text, number = point
-        return int(number)
-    points_by_number = sorted(a, key=number_of_point, reverse=True)
-    for i in range(len(points_by_number)):
-        points_by_number[i] = ' '.join(points_by_number[i])
-    points_by_number_str = '\n'.join(points_by_number)
-    output = open('leaders.txt', 'w')
-    output.write(points_by_number_str)
-    output.close()
+        def number_of_point(point):
+            name_text, number = point
+            return int(number)
+        points_by_number = sorted(a, key=number_of_point, reverse=True)
+        for i in range(len(points_by_number)):
+            points_by_number[i] = ' '.join(points_by_number[i])
+        points_by_number_str = '\n'.join(points_by_number)
+        output = open('leaders.txt', 'w')
+        output.write(points_by_number_str)
+        output.close()
 
 
 # Settings
@@ -248,7 +249,7 @@ new_ball()
 new_square()
 while not finished:
     clock.tick(FPS)
-    if text == ' ':
+    if text == '':
         finished = True
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
