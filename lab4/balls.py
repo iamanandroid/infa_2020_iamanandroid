@@ -192,7 +192,6 @@ def leaders():
     def number_of_point(point):
         name_text, number = point
         return int(number)
-
     points_by_number = sorted(a, key=number_of_point, reverse=True)
     for i in range(len(points_by_number)):
         points_by_number[i] = ' '.join(points_by_number[i])
