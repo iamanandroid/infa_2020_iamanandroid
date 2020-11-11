@@ -260,9 +260,6 @@ def new_game():
                 canv.itemconfig(screen1, text='Вы уничтожили цель за ' + str(bullet) + ' выстрелов')
         for t in targets:
             t.move_targets()
-            if t.live == 0:
-                canv.delete(t.id)
-                targets.remove(t)
         canv.update()
         time.sleep(0.03)
         g1.power_up()
