@@ -215,19 +215,17 @@ class Target:
         self.points += 1
 
 
-# СОздание объектов и переменных необходимых для запуска игры
-
+# Создание объектов и переменных необходимых для запуска игры
 screen1 = canv.create_text(400, 300, text='', font='28')
 g1 = Gun()
 bullet = 0
 balls = []
-targets = []
 t1 = Target()
 t2 = Target()
 targets = [t1, t2]
 
 
-def new_game(event=''):
+def new_game():
     """Запуск игры."""
     t1.new_target()
     t2.new_target()
@@ -263,12 +261,10 @@ def new_game(event=''):
         for t in targets:
             t.move_targets()
             if t.live == 0:
-                t.move_targets()
                 canv.delete(t.id)
                 targets.remove(t)
         canv.update()
         time.sleep(0.03)
-        g1.targeting()
         g1.power_up()
 
 
