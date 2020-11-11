@@ -185,8 +185,8 @@ def leaders():
     a.append([str(text), str(points)])
     for i in range(len(a)):
         if len(a[i]) > 2:
-            num = ''.join(a[i][-1::])
-            a[i] = [' '.join(a[i][:-1:])]
+            num = ''.join(a[i][-1:])
+            a[i] = [' '.join(a[i][:-1])]
             a[i].append(num)
 
     def number_of_point(point):
