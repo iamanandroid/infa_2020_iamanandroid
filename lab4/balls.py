@@ -10,7 +10,6 @@ HEIGHT = 700
 WIDTH = 1200
 FPS = 60
 DT = 0.5
-ALPHA = 0
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
