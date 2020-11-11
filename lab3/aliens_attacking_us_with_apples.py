@@ -4,13 +4,9 @@ from pygame.draw import *
 # Constants
 
 # Size of screen and FPS
-x = 800
-y = 800
+x = 800  # Width
+y = 800  # Height
 FPS = 30
-
-# Scale
-a = 1  # Scale coefficient for an abscissas' axis
-b = 1  # Scale coefficient for an ordinates' axis
 
 # Colors
 BLACK = (0, 0, 0)
@@ -25,9 +21,10 @@ DARK_GREY_CLOUDS = (46, 46, 46)  # For clouds
 LIGHTEST_GREY_UFO = (181, 181, 181)  # For a UFO's porthole
 LIGHT_GREY_UFO = (119, 120, 116)  # For a UFO's carcass
 
-# Creating a screen and initializing pygame
-screen = pygame.display.set_mode((x, y))
-pygame.init()
+# Global variables
+
+a = 1  # Scale coefficient for an abscissas' axis
+b = 1  # Scale coefficient for an ordinates' axis
 
 
 # Functions
@@ -202,6 +199,10 @@ def flipped_alien(a, b, d, e):
     image_alien = pygame.transform.flip(image_alien, True, False)
     screen.blit(image_alien, (d, e))
 
+
+# Creating a screen and initializing pygame
+screen = pygame.display.set_mode((x, y))
+pygame.init()
 
 # Creating a picture with functions
 circle(screen, WHITE, (x * 6 // 8, y // 5), 100)  # Draw the Moon
