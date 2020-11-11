@@ -23,7 +23,7 @@ PURPLE = (234, 0, 255)
 LIGHTBLUE = (0, 196, 255)
 COLORS = [RED, BLUE, YELLOW, GREEN, MAGENTA, CYAN, PURPLE, LIGHTBLUE]
 
-# Global constant
+# Global variable
 points = 0
 
 
@@ -32,6 +32,7 @@ points = 0
 
 def new_square():
     """Creates squares.
+
     Args:
         x - square's horizontal coordinate at the beginning
         y - square's vertical coordinate at the beginning
@@ -39,7 +40,7 @@ def new_square():
         vy - square's vertical speed at the beginning
         r - radius of a circle inscribed in a square
         click - show is square clicked or not
-        angle - initial angle on a spiral that square makes
+        angle - initial angle for a square
     """
     global square, speed
     square = []
@@ -61,6 +62,7 @@ def new_square():
 # Creating balls
 def new_ball():
     """Creates balls.
+
     Args:
         x - ball's horizontal coordinate at the beginning
         y - ball's vertical coordinate at the beginning
@@ -85,7 +87,8 @@ def new_ball():
 # Balls' reflection
 def reflection_balls():
     """Balls' reflection.
-    Ball changing his direction if his ball touches the window screen.
+
+    Ball changing his direction if he touches the window screen.
     """
     for i in range(len(ball)):
         if ball[i][0] + ball[i][4] // 2 >= WIDTH or ball[i][0] <= ball[i][4] // 2:
@@ -98,7 +101,8 @@ def reflection_balls():
 
 def reflection_squares():
     """Squares' reflection.
-    Square changing his direction if his square touches the window screen.
+
+    Square changing his direction if he touches the window screen.
     """
     for i in range(len(square)):
         if square[i][0] + square[i][4] >= WIDTH or square[i][0] <= 0:
@@ -113,6 +117,7 @@ def reflection_squares():
 
 def move_ball():
     """Balls' movements."""
+
     for i in range(len(ball)):
         circle(screen, ball[i][5], (ball[i][0], ball[i][1]), ball[i][4] // 2)
         ball[i][0] = ball[i][0] + ball[i][2]
@@ -121,8 +126,8 @@ def move_ball():
 
 def move_square():
     """Squares' movements.
-    because of that our trajectory is a spiral
-    Angle of a square's spiral  увеличивается and because of that our trajectory is a spiral
+
+    Square's speed is dependent on angle, and because of that it makes squares' trajectory spiral
     """
     global rect1
     rect1 = []
@@ -148,7 +153,7 @@ def score_ball():
 
 
 def score_square():
-    """Add points for clicking on squares."""
+    """Adds points for clicking on squares."""
     global points
     for i in range(len(square)):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -159,7 +164,7 @@ def score_square():
 
 
 def blow(ball):
-    """Creating new objects after clicking on them."""
+    """Creates new objects after clicking on them."""
     for i in range(len(ball)):
         if ball[i][6]:
             ball[i][0] = randint(200, WIDTH - 200)
@@ -175,6 +180,7 @@ def blow(ball):
 
 def leaders():
     """Players' score.
+
     Reading file with old players' score and then adding to the file new player's score.
     Then sorts all scores and rewrites the file. Player's name shouldn't be empty.
     """
