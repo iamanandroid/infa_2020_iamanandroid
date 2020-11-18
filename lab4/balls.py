@@ -184,26 +184,26 @@ def leaders():
     Then sorts all scores and rewrites the file. Player's name shouldn't be empty.
     """
     if text != '':
-        a = []
+        data = []
         with open('leaders.txt') as file:
             for line in file:
-                a.append(line.split())
-        a.append([str(text), str(points)])
-        for i in range(len(a)):
-            if len(a[i]) > 2:
-                num = ''.join(a[i][-1:])
-                a[i] = [' '.join(a[i][:-1])]
-                a[i].append(num)
-
-        def number_of_point(point):
-            name_text, number = point
-            return int(number)
-        points_by_number = sorted(a, key=number_of_point, reverse=True)
-        for i in range(len(points_by_number)):
-            points_by_number[i] = ' '.join(points_by_number[i])
-        points_by_number_str = '\n'.join(points_by_number)
+                data.append(line.split())
+        data.append([str(text), str(points)])
+        for i in range(len(data)):
+            if len(data[i]) > 2:
+                num = ''.join(data[i][-1:])
+                data[i] = [' '.join(data[i][:-1])]
+                data[i].append(num)
+                
+        def player_score(player):
+            name_text, players_score = player
+            return int(players_score)
+        sorted_score = sorted(data, key=player_score, reverse=True)
+        for i in range(len(sorted_score)):
+            sorted_score[i] = ' '.join(sorted_score[i])
+        sorted_score_line = '\n'.join(sorted_score)
         output = open('leaders.txt', 'w')
-        output.write(points_by_number_str)
+        output.write(sorted_score_line)
         output.close()
 
 
@@ -239,7 +239,6 @@ while not finished:
                     pygame.mixer.music.pause()
             else:
                 text += event.unicode
-
     screen.blit(title, (WIDTH // 2 - 230, HEIGHT // 2 - 160))
     screen.blit(name, (WIDTH // 2 - 230, HEIGHT // 2 - 100))
     screen.blit(error, (WIDTH // 2 - 230, HEIGHT // 2 + 300))
@@ -262,6 +261,8 @@ while not finished:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 finished = True
+    if points >= 20:
+        finished = True
     title = font_surface.render('Score:', True, BLACK)
     screen.blit(title, (20, 10))
     score = font_surface.render(str(points), True, BLACK)
