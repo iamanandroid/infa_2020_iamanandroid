@@ -56,23 +56,107 @@ def sky_with_clouds():
 def ufo(a, b, d, e):
     image_light_of_ufo = pygame.Surface((int(x * a), int(y * b)))
     image_light_of_ufo.set_colorkey(BLACK)
-    image_light_of_ufo.set_alpha(100)
-    polygon(image_light_of_ufo, WHITE, [(int(20 * a), int(b * 800)), (int(a * 200), int(b * 450)), (int(a * 400),
-                                                                                                    (b * 800))
+    image_light_of_ufo.set_alpha(40)
+    polygon(image_light_of_ufo, WHITE, [(int(20 * a), int(b * 700)), (int(a * 200), int(b * 450)), (int(a * 400),
+                                                                                                    (b * 700))
                                         ])
+    image_22 = pygame.Surface((int(x * a), int(y * b)))
+    image_22.set_colorkey(BLACK)
+    image_22.set_alpha(100)
+    ellipse(image_22, WHITE, (int(20 * a), int(b * 650), int(380 * a), int(b * 100)))
     image_ufo = pygame.Surface((int(x * a), int(y * b)))
     image_ufo.set_colorkey(BLACK)
     image_ufo.set_alpha(255)
     ellipse(image_ufo, LIGHT_GREY_UFO, (int(a * 10), int(b * 400), int(a * 380), int(b * 120)))
     ellipse(image_ufo, LIGHTEST_GREY_UFO, (int(a * 60), int(b * 390), int(a * 280), int(b * 90)))
-    ellipse(image_ufo, WHITE, (int(a * 30), int(b * 450), int(a * 40), int(b * 15)))
+    ellipse(image_ufo, RED, (int(a * 30), int(b * 450), int(a * 40), int(b * 15)))
     ellipse(image_ufo, WHITE, (int(a * 340), int(b * 450), int(a * 40), int(b * 15)))
-    ellipse(image_ufo, WHITE, (int(a * 80), int(b * 475), int(a * 40), int(b * 15)))
-    ellipse(image_ufo, WHITE, (int(a * 300), int(b * 475), int(a * 40), int(b * 15)))
-    ellipse(image_ufo, WHITE, (int(a * 150), int(b * 490), int(a * 40), int(b * 15)))
-    ellipse(image_ufo, WHITE, (int(a * 230), int(b * 490), int(a * 40), int(b * 15)))
+    ellipse(image_ufo, DARK_BLUE, (int(a * 80), int(b * 475), int(a * 40), int(b * 15)))
+    ellipse(image_ufo, GREEN, (int(a * 300), int(b * 475), int(a * 40), int(b * 15)))
+    ellipse(image_ufo, DARK_GREEN, (int(a * 150), int(b * 490), int(a * 40), int(b * 15)))
+    ellipse(image_ufo, LIGHT_GREEN, (int(a * 230), int(b * 490), int(a * 40), int(b * 15)))
+    screen.blit(image_22, (d, e))
     screen.blit(image_light_of_ufo, (d, e))
     screen.blit(image_ufo, (d, e))
+
+
+# Draw an alien with two apples in particular place (d,e) with a given scale (a,b)
+def alien_apple(a, b, d, e):
+    image_alien = pygame.Surface((int(x * a), int(y * b)), pygame.SRCALPHA)
+    aln = [[int(18 * a), int(21 * b)], [int(17 * a), int(22 * b)], [int(16 * a), int(23 * b)],
+           [int(16 * a), int(32 * b)],
+           [int(23 * a), int(43 * b)],
+           [int(20 * a), int(47 * b)], [int(21 * a), int(58 * b)], [int(24 * a), int(74 * b)],
+           [int(27 * a), int(79 * b)],
+           [int(30 * a), int(89 * b)], [int(38 * a), int(99 * b)],
+           [int(43 * a), int(106 * b)], [int(52 * a), int(112 * b)], [int(61 * a), int(117 * b)],
+           [int(84 * a), int(118 * b)],
+           [int(94 * a), int(115 * b)],
+           [int(102 * a), int(112 * b)], [int(108 * a), int(105 * b)], [int(115 * a), int(97 * b)],
+           [int(122 * a), int(84 * b)],
+           [int(135 * a), int(74 * b)],
+           [int(143 * a), int(65 * b)], [int(149 * a), int(57 * b)], [int(159 * a), int(49 * b)],
+           [int(161 * a), int(43 * b)],
+           [int(161 * a), int(32 * b)], [int(158 * a), int(24 * b)], [int(152 * a), int(20 * b)],
+           [int(140 * a), int(15 * b)],
+           [int(133 * a), int(14 * b)], [int(23 * a), int(17 * b)]]
+    for i in range(len(aln)):
+        aln[i][0] = aln[i][0] + int(300 * a)
+        aln[i][1] = aln[i][1] + int(300 * b)
+    polygon(image_alien, LIGHT_GREEN, aln)
+    ellipse(image_alien, BLACK, (int(a * 340), int(b * 335), int(a * 40), int(b * 40)))
+    ellipse(image_alien, WHITE, (int(a * 360), int(b * 355), int(a * 10), int(b * 10)))
+    ellipse(image_alien, BLACK, (int(a * 410), int(b * 335), int(a * 30), int(b * 30)))
+    ellipse(image_alien, WHITE, (int(a * 425), int(b * 350), int(a * 10), int(b * 10)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 320), int(b * 295), int(a * 10), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 310), int(b * 275), int(a * 20), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 300), int(b * 265), int(a * 20), int(b * 10)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 300), int(b * 250), int(a * 20), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 440), int(b * 305), int(a * 20), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 450), int(b * 295), int(a * 10), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 456), int(b * 275), int(a * 20), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 480), int(b * 265), int(a * 20), int(b * 15)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 510), int(b * 265), int(a * 20), int(b * 30)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 320), int(b * 420), int(a * 100), int(b * 200)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 410), int(b * 440), int(a * 40), int(b * 40)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 430), int(b * 460), int(a * 40), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 470), int(b * 470), int(a * 40), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 300), int(b * 440), int(a * 40), int(b * 40)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 280), int(b * 470), int(a * 40), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 260), int(b * 490), int(a * 20), int(b * 20)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 310), int(b * 570), int(a * 40), int(b * 70)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 300), int(b * 620), int(a * 30), int(b * 70)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 270), int(b * 650), int(a * 40), int(b * 40)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 400), int(b * 570), int(a * 40), int(b * 70)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 420), int(b * 620), int(a * 30), int(b * 70)))
+    ellipse(image_alien, LIGHT_GREEN, (int(a * 440), int(b * 650), int(a * 40), int(b * 40)))
+    ellipse(image_alien, RED, (int(a * 500), int(b * 420), int(a * 65), int(b * 65)))
+
+    def apple_1():
+        ellipse(image_alien, RED, (int(a * 500), int(b * 420), int(a * 65), int(b * 65)))
+        apple1 = []
+        for i in range(30):
+            apple1.append([int((532 + i) * a), int(b * (425 - 4 * i ** (1 / 2)))])
+        lines(image_alien, BLACK, False, apple1)
+        apple2 = []
+        for i in range(30):
+            apple2.append([int((535 - i) * a), int(b * (415 - 4 * i ** (1 / 2)))])
+        polygon(image_alien, GREEN, apple2)
+
+    def apple_2():
+        ellipse(image_alien, RED, (int(a * 230), int(b * 430), int(a * 65), int(b * 65)))
+        apple1 = []
+        for i in range(30):
+            apple1.append([int((252 + i) * a), int(b * (435 - 4 * i ** (1 / 2)))])
+        lines(image_alien, BLACK, False, apple1)
+        apple2 = []
+        for i in range(30):
+            apple2.append([int((255 - i) * a), int(b * (425 - 4 * i ** (1 / 2)))])
+        polygon(image_alien, GREEN, apple2)
+
+    apple_1()
+    apple_2()
+    screen.blit(image_alien, (d, e))
 
 
 # Draw an alien in particular place (d,e) with a given scale (a,b)
@@ -126,14 +210,18 @@ def alien(a, b, d, e):
     ellipse(image_alien, LIGHT_GREEN, (int(a * 420), int(b * 620), int(a * 30), int(b * 70)))
     ellipse(image_alien, LIGHT_GREEN, (int(a * 440), int(b * 650), int(a * 40), int(b * 40)))
     ellipse(image_alien, RED, (int(a * 500), int(b * 420), int(a * 65), int(b * 65)))
-    apple1 = []
-    for i in range(30):
-        apple1.append([int((532 + i) * a), int(b * (425 - 4 * i ** (1 / 2)))])
-    lines(image_alien, BLACK, False, apple1)
-    apple2 = []
-    for i in range(30):
-        apple2.append([int((535 - i) * a), int(b * (415 - 4 * i ** (1 / 2)))])
-    polygon(image_alien, GREEN, apple2)
+
+    def apple():
+        apple1 = []
+        for i in range(30):
+            apple1.append([int((532 + i) * a), int(b * (425 - 4 * i ** (1 / 2)))])
+        lines(image_alien, BLACK, False, apple1)
+        apple2 = []
+        for i in range(30):
+            apple2.append([int((535 - i) * a), int(b * (415 - 4 * i ** (1 / 2)))])
+        polygon(image_alien, GREEN, apple2)
+
+    apple()
     screen.blit(image_alien, (d, e))
 
 
@@ -214,7 +302,7 @@ ufo(0.5, 0.5, 500, 100)
 ufo(1, 1, 0, -200)
 flipped_alien(0.4, 0.4, 200, 500)
 flipped_alien(0.4, 0.4, -60, 450)
-alien(0.6, 0.6, 400, 350)
+alien_apple(0.6, 0.6, 400, 350)
 
 # Initializing picture
 pygame.display.update()
